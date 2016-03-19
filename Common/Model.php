@@ -57,7 +57,17 @@ class Model
 
     public function save()
     {
-        
+                
+    }
+
+    public function sqlQuery($sql)
+    {
+        if (strpos('select', strtolower($sql))) {
+            return $this->query($sql);
+        }else
+        {
+            return $this->model->exec($sql);
+        }
     }
 
     public function data($data)

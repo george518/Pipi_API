@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+
+#GZIP压缩模块配置
+<ifmodule mod_deflate.c>
+#启用对特定MIME类型内容的压缩
+SetOutputFilter DEFLATE
+SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png|exe|t?gz|zip|bz2|sit|rar|pdf|mov|avi|mp3|mp4|rm)$ no-gzip dont-vary #设置不对压缩的文件
+AddOutputFilterByType DEFLATE application/json text/html text/css text/plain text/xml application/x-httpd-php application/x-javascript #设置对压缩的文件
+</ifmodule>

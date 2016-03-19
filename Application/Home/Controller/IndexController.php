@@ -6,6 +6,8 @@ class IndexController extends Controller
 {
 	public function index()
 	{
+		$ss = M('user');
+		pdump($ss);
 		$db  = M('user')
 					->fields('id,name')
 					->where('id<100')
@@ -15,9 +17,9 @@ class IndexController extends Controller
 				'name'=>'haopipi3',
 				'age' =>5
 			);
-		$res = M('user')->data($data)->add();
+		//$res = M('user')->data($data)->add();
 
-		dump($res);
+		//dump($res);
 	}
 
 	public function memcached()
