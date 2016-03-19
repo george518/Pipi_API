@@ -5,8 +5,8 @@ class Routes
 {
 	static public function route()
 	{
-		$requestUri    = $_SERVER['REQUEST_URI'];
-		$requestUriArr = explode('/', (trim($_SERVER['REQUEST_URI'],'/')));
+		//$requestUri    = $_SERVER['REQUEST_URI'];
+		$requestUriArr = explode('/', (trim($_SERVER['PATH_INFO'],'/')));
 		$paramNum = count($requestUriArr);
 		$module        = $paramNum >=3 ? $requestUriArr[0] : 'Home';
 		$controller    = $paramNum >=3 ? $requestUriArr[1] : 'Index';
