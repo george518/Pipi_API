@@ -7,10 +7,11 @@ class IndexController extends Controller
 {
 	public function index()
 	{
+		dump($this->viewHandle);
 
-		$user = new User();
-		dump($user);
-		echo $user->getList();
+		//$user = new User();
+		//dump($user);
+		//echo $user->getList();
 	}
 
 	public function memcached()
