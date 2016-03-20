@@ -6,15 +6,35 @@ class Routes
 	static public function route()
 	{
 		//$requestUri    = $_SERVER['REQUEST_URI'];
-		$requestUriArr = explode('/', (trim($_SERVER['PATH_INFO'],'/')));
-		$paramNum = count($requestUriArr);
-		$module        = $paramNum >=3 ? $requestUriArr[0] : 'Home';
-		$controller    = $paramNum >=3 ? $requestUriArr[1] : 'Index';
-		$action        = $paramNum >=3 ? $requestUriArr[2] : 'Index';
-		
-		spl_autoload_register('Common\Routes::autoload');
+		$requestUriArr = explode('/', (trim($_SERVER['REQUEST_URI'],'/')));
+		$paramNum   = count($requestUriArr);
+		$module     = 'Home';
+		$controller = 'Index';
+		$action     = 'index';
 
-		//传参数未解决＊＊＊＊＊＊＊＊＊
+		if(count($requestUriArr)>=3)
+		{
+			$module     = $requestUriArr[0];
+			$controller = $requestUriArr[1];
+			$action     = $requestUriArr[2];
+
+			unset($requestUriArr[0]);
+			unset($requestUriArr[1]);
+			unset($requestUriArr[2]);
+
+			$paramValues = array_values($requestUriArr);
+			$getParam = array();
+			foreach ($paramValues as $key => $value) {
+				if($key%2==0){
+					$getParam[$value] = '';
+				}else{
+					$getParam[$paramValues[$key-1]] = $value;
+				}
+			}
+
+			$_GET = $getParam;
+		}
+		spl_autoload_register('Common\Routes::autoload');
 
 		$classPath = str_replace('/','\\',APP_PATH).$module.'\Controller\\'.$controller.'Controller';
 		$class = new $classPath();

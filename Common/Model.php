@@ -55,15 +55,41 @@ class Model
         return $this->model->lastInsertId(); 
     }
 
+    /**
+     * [save 修改]
+     * @return [type] [影响条数0-n OR false]
+     */
     public function save()
     {
-                
+        $sql    = 'UPDATE ';
+        $sql   .= $this->table;
+        $sql   .= ' SET ';
+        foreach ($this->data as $key => $value) {
+            $sql    .= '`'.$key.'`="'.$value.'",';
+        }
+        $sql    = rtrim($sql,',');
+        $sql   .= ' WHERE '.$this->where;
+        return $this->model->exec($sql);
     }
-
+    /**
+     * [delete description]
+     * @return [type] [false 或影响条数]
+     */
+    public function delete()
+    {
+        $sql    = 'DELETE FROM ';
+        $sql   .= $this->table;
+        $sql   .= ' WHERE '.$this->where;
+        echo $sql;
+        return $this->model->exec($sql);
+    }
+    
     public function sqlQuery($sql)
     {
-        if (strpos('select', strtolower($sql))) {
-            return $this->query($sql);
+        if (strpos(strtolower($sql),'select')!==false) {
+            $res = $this->model->query($sql);
+            $res->setFetchMode(C('FETCH_TYPE'));
+            return $res->fetchAll();
         }else
         {
             return $this->model->exec($sql);
