@@ -1,0 +1,19 @@
+{
+	"name":"Pipi PHP",
+	"description":"Pipi Framework",
+	"type":"Framework",
+	"keywords":[
+		"PHP","PHP Framework","Pipi"
+	],
+	"require":{
+		"PHP":">=5.3.0",
+		"Filp/whoops":"*",
+		"symfony/var-dumper":"*"
+	},
+	"repositories": {
+	    "packagist": {
+	        "type": "composer",
+	        "url": "https://packagist.phpcomposer.com"
+	    }
+	}
+}
