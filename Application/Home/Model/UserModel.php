@@ -8,25 +8,28 @@ class UserModel extends Model
 
 	public function __construct()
 	{
-		$this->m = M('user');
+		$this->m = M('pp_user');
 	}
 
-	public function add()
+	public function addData($data)
 	{
-		$data  = ['name'=>'daquan','age'=>12];
 		return $this->m->data($data)->add();
 	}
 
 
-	public function getList($limit=3,$where='age=12')
+	public function getList($limit,$where)
 	{
 		return  $this->m->where($where)->limit($limit)->select();
 	}
 
-	public function updateData()
+	public function updateData($data,$where)
 	{
-		$data = ['name'=>'daqqq'];
-		return $this->m->data($data)->where(' age=12 ')->save();
+		return $this->m->data($data)->where($where)->save();
+	}
+
+	public function deleteData($where)
+	{
+		return $this->m->where($where)->delete();
 	}
 
 	public function insert_data($data)

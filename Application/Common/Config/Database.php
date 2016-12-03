@@ -10,7 +10,7 @@
 return [
 	'DB_DEFAULT'=>[
 		'DB_HOST'	=> 'localhost',
-		'DB_NAME'	=> 'student',
+		'DB_NAME'	=> 'pipi',
 		'DB_USER'	=> 'root',
 		'DB_PWD' 	=> '123456',
 		'DB_PORT'	=> '3306',

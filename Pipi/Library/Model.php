@@ -118,6 +118,7 @@ class Model
         if (!$this->where) return false;
         if($this->debug===1) return $sql;
         $this->sqlLog[] = $sql; 
+
         return $this->model->exec($sql);
     }
     
