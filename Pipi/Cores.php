@@ -19,6 +19,7 @@ class Cores
 	static public function run()
 	{
 		spl_autoload_register('self::autoload');
+		set_error_handler('self::errorHandle');
 		#加载函数库
 		self::loadFunctions([]);
 		#加载配置项
@@ -28,14 +29,23 @@ class Cores
 		#加载调试类
 		self::debug();
 		#加载路由
-		$route = new Library\Routes();
+		$routeObj = new Library\Routes();
+
 		$classPath = '\\'.C('APP_NAME').'\\'
-					.$route->route['module'].'\Controller\\'
-					.$route->route['version'].'\\'
-					.$route->route['controller'];
+					.$routeObj->route['module'].'\Controller\\'
+					.$routeObj->route['version'].'\\'
+					.$routeObj->route['controller'];
+
+		if (!class_exists($classPath)) {
+			ajaxReturn([],300,"地址错误,Controller");
+		}
 
 		$class = new $classPath();
-		$function = $route->route['action'];
+		$function = $routeObj->route['action'];
+
+		if(!method_exists($class,$function)){
+			ajaxReturn([],300,"地址错误,Function");
+		}
 		return $class->$function();
 	}
 
@@ -57,7 +67,6 @@ class Cores
 	{
 		return require CORE_PATH.'Function/Function.php';
 	}
-
 
 	/**
 	 * [autoload 自动加载类]
@@ -92,6 +101,20 @@ class Cores
 		$option->setPageTitle($title);
 		$whoops->pushHandler($option);
 		$whoops->register();
+	}
+
+	static public function errorHandle($errno,$errstr,$errfile,$errline,$errcontext)
+	{
+		echo $errfile;
+		echo '<br />';
+		echo $errno;
+		echo '<br />';
+		echo $errstr;
+		echo '<br />';
+		echo $errline;
+		echo '<br />';
+		var_dump($errcontext);
+		die;
 	}
 
 

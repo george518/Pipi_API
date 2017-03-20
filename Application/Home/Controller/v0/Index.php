@@ -23,6 +23,7 @@ class Index extends Controller
 	public function index()
 	{
 		$requestMethod = strtolower($this->method);
+
 		$this->$requestMethod();
 	}
 
@@ -48,7 +49,13 @@ class Index extends Controller
 		$size = isset($this->get['pageSize']) ? $this->get['pageSize'] : 10;
 		$current = isset($this->get['pageCurrent']) ?  $this->get['pageCurrent'] : 1;
 		$limit = ($current-1)*$size.','.$size;
-		$where = 'gender='.$this->get['gender'];
+		if (isset($this->get['gender'])) {
+			$where = 'gender='.$this->get['gender'];
+		}else
+		{
+			$where = 'gender=1';
+		}
+		
 		$data = $this->user_model->getList($limit,$where);
 		#TODO：添加总数，sql条件
 		$this->ajaxReturn($data);

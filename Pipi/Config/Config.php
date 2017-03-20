@@ -14,7 +14,7 @@ return [
 
 
 	'APP_TYPE'       => 1, #1-接口
-	'URL_MODULE'     => 1, #普通接口模式 #http://localhost/module/v0/controller/action/{id}?param1=param1&param2=param2
+	'URL_MODULE'     => 2, #普通接口模式 #http://localhost/module/v0/controller/action/{id}?param1=param1&param2=param2
 
 	'URI_VERSION'    => 'v0',
 	'APP_NAME'       => 'Application',

@@ -26,6 +26,7 @@ class Controller
 		$this->header 	= get_header_info(C('HTTP_HEAD_PREFIX'));
 		$this->keyId    = C('ROUTE_DATA.keyId');
 		$this->db       = false;
+		
 		#加载配置
 		Controller::appAutoload();
 		#接口权限验证

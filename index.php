@@ -12,11 +12,10 @@ if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
 #定义常量
 define('ROOT_PATH',realpath('./'));
-define('CORE_PATH', ROOT_PATH.'/Pipi/');
+define('CORE_PATH',ROOT_PATH.'/Pipi/');
 define('APP_PATH', ROOT_PATH.'/Application/');
 #环境  * development=1 * production=2
 define('ENVIRONMENT',1);
-
 #启动框架
 require(CORE_PATH.'Cores.php');
 Pipi\Cores::run();

@@ -77,28 +77,23 @@ function get_header_info($prefix='')
     return $header; 
 }
 
-
 /**
- * [deal_url description]
- * @return [type] [description]
+ * [ajaxReturn 数据返回统一格式]
+ * @param  array   $data     [数据]
+ * @param  integer $status   [状态]
+ * @param  string  $messages [提示信息]
+ * @return [type]            [description]
  */
-function url_handle()
+function ajaxReturn($data=[],$status=200,$messages="操作成功")
 {
-    $uri    = trim($_SERVER['REQUEST_URI'],' ');
-    $urlArr = explode('?',$uri);
-    $mca    = explode('/', (trim($urlArr[0],'/')));
-    
-    $route  = []; 
-    $route['module']     = $mca[0] ? $mca[0] : C('MODULE');
-    $route['version']    = isset($mca[1]) ? $mca[1] : C('URI_VERSION');
-    $route['controller'] = isset($mca[2]) ? $mca[2] : C('CONTROLLER');
-    $route['action']     = isset($mca[3]) ? $mca[3] : C('ACTION');
-    $route['keyId']      = isset($mca[4]) ? (int)$mca[4] : '';
-    #设置URL
-    C('ROUTE_DATA',$route);
-
-    return $route;
+    echo  json_encode(
+        ['status'=>$status,'message'=>$messages,'data'=>$data]
+    );
+    exit();
 }
+
+
+
 
 
 
